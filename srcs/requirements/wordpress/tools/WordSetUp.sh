@@ -36,7 +36,7 @@ if [ ! -f /wordpress/wp-config.php ]; then
 
   mkdir -p /wordpress
 
-  chmod -R 755 /wordpress
+  chmod -R 777 /wordpress
 
   cd wordpress
 

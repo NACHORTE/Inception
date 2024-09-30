@@ -2,7 +2,7 @@ CONTAINERS := mariadb wordpress nginx
 
 YML_PATH = ./srcs/docker-compose.yml
 
-VOL_DIR := /home/iortega-/data
+VOL_DIR := /home/iortega/data
 
 VOLUMES := mariadb wordpress
 
@@ -22,6 +22,10 @@ down:
 re:
 	$(RM) $(VOL_DIR)
 	make 
+
+clean:
+	sudo docker compose -f $(YML_PATH) down -v --remove-orphans --rmi all
+	sudo rm -rf $(VOL_DIR)
 
 $(VOLUME):
 	mkdir -p $(VOLUME) 2>/dev/null

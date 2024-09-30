@@ -23,6 +23,10 @@ re:
 	$(RM) $(VOL_DIR)
 	make 
 
+clean:
+	sudo docker compose -f $(YML_PATH) down -v --remove-orphans --rmi all
+	sudo rm -rf $(VOL_DIR)
+
 $(VOLUME):
 	mkdir -p $(VOLUME) 2>/dev/null
 

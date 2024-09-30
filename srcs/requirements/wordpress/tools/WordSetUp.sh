@@ -15,7 +15,7 @@ fi
 
 while true; do
 	echo "Checking connection to MySQL..."
-	if mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $MYSQL_HOST -e "SELECT 1;"
+	if mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -h $MYSQL_HOST -e "SELECT 1;" &> /dev/null;
 	then
 		break
 	fi

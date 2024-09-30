@@ -12,6 +12,8 @@ services:
     restart: on-failure
     expose:
       - "3306"
+    image: mariadb
+    container_name: mariadb
 
   wordpress:
     build: ./requirements/wordpress
@@ -26,6 +28,8 @@ services:
       - mariadb
     expose:
       - "9000"
+    image: wordpress
+    container_name: wordpress
     
   nginx:
     build: ./requirements/nginx
@@ -40,6 +44,8 @@ services:
     restart: on-failure
     depends_on:
       - wordpress
+    image: nginx
+    container_name: nginx
 
 volumes:
   mariadb:
@@ -48,12 +54,14 @@ volumes:
       type: none
       device: /home/iortega/data/mariadb
       o: bind
+    name: mariadb
   wordpress:
     driver: local
     driver_opts:
       type: none
       device: /home/iortega/data/wordpress
       o: bind
+    name: wordpress
       
 
 networks:

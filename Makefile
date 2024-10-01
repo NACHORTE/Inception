@@ -10,10 +10,25 @@ VOLUME = $(addprefix $(VOL_DIR)/,$(VOLUMES))
 
 RM = rm -rf 
 
+# Leer el archivo .env
+include srcs/.env
+
+# Lista de nombres de administrador prohibidos
+FORBIDDEN_USERS := admin Admin administrator Administrator
+
+# Función para verificar si ADMIN_USER está en FORBIDDEN_USERS
+define check_admin_user
+	$(foreach forbidden,$(FORBIDDEN_USERS),\
+		$(if $(findstring $(forbidden),$(ADMIN_USER)),\
+			$(error "ADMIN_USER contiene un valor no permitido: $(ADMIN_USER)")))
+endef
+
 run: $(VOLUME)
+	$(call check_admin_user)
 	sudo docker compose -f $(YML_PATH) up --build --remove-orphans
 
 dt: $(VOLUME)
+	$(call check_admin_user)
 	sudo docker compose -f $(YML_PATH) up --build -d --remove-orphans
 
 down:
